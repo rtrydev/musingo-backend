@@ -1,2 +1,4 @@
 /musingo-backend/bin
 /musingo-backend/obj
+/musingo-backend/.vs
+/musingo-backend/.idea
