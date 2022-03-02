@@ -29,7 +29,7 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
         builder.Property(x => x.ImageUrl)
             .HasColumnName("image_url")
             .HasColumnType("text")
-            .IsRequired();
+            .IsRequired(false);
         
         builder.Property(x => x.Description)
             .HasColumnName("description")
