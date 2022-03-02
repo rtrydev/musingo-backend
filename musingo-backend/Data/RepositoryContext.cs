@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using musingo_backend.Configurations;
 using musingo_backend.Models;
 
 namespace musingo_backend.Data;
@@ -17,7 +18,11 @@ public class RepositoryContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // apply configurations
+        modelBuilder.ApplyConfiguration<Offer>(new OfferConfiguration());
+        modelBuilder.ApplyConfiguration<Transaction>(new TransactionConfiguration());
+        modelBuilder.ApplyConfiguration<User>(new UserConfiguration());
+        modelBuilder.ApplyConfiguration<UserComment>(new UserCommentConfiguration());
+        
     }
     
 }
