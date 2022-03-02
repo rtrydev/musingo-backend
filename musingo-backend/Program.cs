@@ -1,5 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using musingo_backend.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var context = new RepositoryContext();
+context.Database.Migrate();
 // Add services to the container.
 
 builder.Services.AddControllers();

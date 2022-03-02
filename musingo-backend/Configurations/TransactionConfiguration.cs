@@ -9,11 +9,22 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
     public void Configure(EntityTypeBuilder<Transaction> builder)
     {
         builder.ToTable("transactions")
-            .HasOne(x => x.Buyer);
+            .HasOne(x => x.Buyer)
+            .WithMany()
+            .IsRequired()
+            .HasForeignKey("buyer_id");
+        
         builder.ToTable("transactions")
-            .HasOne(x => x.Seller);
+            .HasOne(x => x.Seller)
+            .WithMany()
+            .IsRequired()
+            .HasForeignKey("seller_id");
+        
         builder.ToTable("transactions")
-            .HasOne(x => x.Offer);
+            .HasOne(x => x.Offer)
+            .WithMany()
+            .IsRequired()
+            .HasForeignKey("offer_id");
 
         builder.HasKey(x => x.Id);
 

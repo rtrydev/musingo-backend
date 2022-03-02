@@ -9,7 +9,10 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
     public void Configure(EntityTypeBuilder<UserComment> builder)
     {
         builder.ToTable("user_comments")
-            .HasOne(x => x.Transaction);
+            .HasOne(x => x.Transaction)
+            .WithMany()
+            .IsRequired()
+            .HasForeignKey("transaction_id");
 
         builder.HasKey(x => x.Id);
 
@@ -20,7 +23,7 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
 
         builder.Property(x => x.Rating)
             .HasColumnName("rating")
-            .HasColumnType("double")
+            .HasColumnType("double precision")
             .IsRequired();
 
         builder.Property(x => x.CommentText)

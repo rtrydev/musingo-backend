@@ -40,5 +40,10 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
             .HasColumnName("offer_status")
             .HasColumnType("int")
             .IsRequired();
+
+        builder.Property(x => x.Cost)
+            .HasColumnName("cost")
+            .HasColumnType("double precision")
+            .IsRequired();
     }
 }
