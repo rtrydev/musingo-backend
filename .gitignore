@@ -2,3 +2,5 @@
 /musingo-backend/obj
 /musingo-backend/.vs
 /musingo-backend/.idea
+.vs
+.idea
