@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using musingo_backend.Data;
 
 #nullable disable
@@ -18,9 +18,9 @@ namespace musingo_backend.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-preview.1.22076.6")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("musingo_backend.Models.Offer", b =>
                 {
@@ -29,7 +29,7 @@ namespace musingo_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<double>("Cost")
                         .HasColumnType("double precision")
@@ -70,9 +70,10 @@ namespace musingo_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("LastUpdateTime")
+                    b.Property<byte[]>("LastUpdateTime")
+                        .IsRequired()
                         .HasColumnType("timestamp")
                         .HasColumnName("last_update_time");
 
@@ -80,13 +81,13 @@ namespace musingo_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("status");
 
-                    b.Property<int>("buyer_id")
+                    b.Property<int?>("buyer_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("offer_id")
+                    b.Property<int?>("offer_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("seller_id")
+                    b.Property<int?>("seller_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -107,7 +108,7 @@ namespace musingo_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -140,7 +141,7 @@ namespace musingo_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CommentText")
                         .HasColumnType("text")
@@ -150,7 +151,7 @@ namespace musingo_backend.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("rating");
 
-                    b.Property<int>("transaction_id")
+                    b.Property<int?>("transaction_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -175,21 +176,15 @@ namespace musingo_backend.Migrations
                 {
                     b.HasOne("musingo_backend.Models.User", "Buyer")
                         .WithMany()
-                        .HasForeignKey("buyer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("buyer_id");
 
                     b.HasOne("musingo_backend.Models.Offer", "Offer")
                         .WithMany()
-                        .HasForeignKey("offer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("offer_id");
 
                     b.HasOne("musingo_backend.Models.User", "Seller")
                         .WithMany()
-                        .HasForeignKey("seller_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("seller_id");
 
                     b.Navigation("Buyer");
 
@@ -202,9 +197,7 @@ namespace musingo_backend.Migrations
                 {
                     b.HasOne("musingo_backend.Models.Transaction", "Transaction")
                         .WithMany()
-                        .HasForeignKey("transaction_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("transaction_id");
 
                     b.Navigation("Transaction");
                 });

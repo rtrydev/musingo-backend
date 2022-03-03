@@ -11,7 +11,6 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
         builder.ToTable("user_comments")
             .HasOne(x => x.Transaction)
             .WithMany()
-            .IsRequired()
             .HasForeignKey("transaction_id");
 
         builder.HasKey(x => x.Id);

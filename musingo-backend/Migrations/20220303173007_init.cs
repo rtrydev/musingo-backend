@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,7 +14,7 @@ namespace musingo_backend.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     email = table.Column<string>(type: "text", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
@@ -31,7 +30,7 @@ namespace musingo_backend.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     title = table.Column<string>(type: "text", nullable: false),
                     image_url = table.Column<string>(type: "text", nullable: true),
                     cost = table.Column<double>(type: "double precision", nullable: false),
@@ -55,29 +54,29 @@ namespace musingo_backend.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OfferId = table.Column<int>(type: "int", nullable: true),
-                    SellerId = table.Column<int>(type: "int", nullable: true),
-                    BuyerId = table.Column<int>(type: "int", nullable: true),
-                    last_update_time = table.Column<DateTime>(type: "timestamp", nullable: false),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    offer_id = table.Column<int>(type: "int", nullable: true),
+                    seller_id = table.Column<int>(type: "int", nullable: true),
+                    buyer_id = table.Column<int>(type: "int", nullable: true),
+                    last_update_time = table.Column<byte[]>(type: "timestamp", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_transactions", x => x.id);
                     table.ForeignKey(
-                        name: "FK_transactions_offers_OfferId",
-                        column: x => x.OfferId,
+                        name: "FK_transactions_offers_offer_id",
+                        column: x => x.offer_id,
                         principalTable: "offers",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_transactions_users_BuyerId",
-                        column: x => x.BuyerId,
+                        name: "FK_transactions_users_buyer_id",
+                        column: x => x.buyer_id,
                         principalTable: "users",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_transactions_users_SellerId",
-                        column: x => x.SellerId,
+                        name: "FK_transactions_users_seller_id",
+                        column: x => x.seller_id,
                         principalTable: "users",
                         principalColumn: "id");
                 });
@@ -87,17 +86,17 @@ namespace musingo_backend.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     rating = table.Column<double>(type: "double precision", nullable: false),
-                    TransactionId = table.Column<int>(type: "int", nullable: true),
+                    transaction_id = table.Column<int>(type: "int", nullable: true),
                     comment_text = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_user_comments", x => x.id);
                     table.ForeignKey(
-                        name: "FK_user_comments_transactions_TransactionId",
-                        column: x => x.TransactionId,
+                        name: "FK_user_comments_transactions_transaction_id",
+                        column: x => x.transaction_id,
                         principalTable: "transactions",
                         principalColumn: "id");
                 });
@@ -108,24 +107,24 @@ namespace musingo_backend.Migrations
                 column: "owner_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_transactions_BuyerId",
+                name: "IX_transactions_buyer_id",
                 table: "transactions",
-                column: "BuyerId");
+                column: "buyer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_transactions_OfferId",
+                name: "IX_transactions_offer_id",
                 table: "transactions",
-                column: "OfferId");
+                column: "offer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_transactions_SellerId",
+                name: "IX_transactions_seller_id",
                 table: "transactions",
-                column: "SellerId");
+                column: "seller_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_user_comments_TransactionId",
+                name: "IX_user_comments_transaction_id",
                 table: "user_comments",
-                column: "TransactionId");
+                column: "transaction_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
