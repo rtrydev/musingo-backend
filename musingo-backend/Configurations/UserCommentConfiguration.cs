@@ -11,7 +11,6 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
         builder.ToTable("user_comments")
             .HasOne(x => x.Transaction)
             .WithMany()
-            .IsRequired()
             .HasForeignKey("transaction_id");
 
         builder.HasKey(x => x.Id);
@@ -28,7 +27,7 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
 
         builder.Property(x => x.CommentText)
             .HasColumnName("comment_text")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired(false);
 
     }

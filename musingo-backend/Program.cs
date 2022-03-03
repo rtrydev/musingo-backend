@@ -4,11 +4,10 @@ using musingo_backend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var context = new RepositoryContext();
-context.Database.Migrate();
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<RepositoryContext>();
+builder.Services.AddDbContext<RepositoryContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MusingoDatabase")));
 
 builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<IUserRepository, UserRepository>();
@@ -19,6 +18,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -23,17 +23,17 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
 
         builder.Property(x => x.Title)
             .HasColumnName("title")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired();
         
         builder.Property(x => x.ImageUrl)
             .HasColumnName("image_url")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired(false);
         
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired();
         
         builder.Property(x => x.OfferStatus)
