@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using musingo_backend.Configurations;
 using musingo_backend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace musingo_backend.Data;
 
@@ -11,9 +12,9 @@ public class RepositoryContext : DbContext
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserComment> UserComments { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
     {
-        optionsBuilder.UseNpgsql(@"Server=localhost:5432;Database=musingo;User Id=postgres;Password=secretpassword");
+        
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
