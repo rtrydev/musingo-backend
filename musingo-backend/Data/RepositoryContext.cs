@@ -12,9 +12,9 @@ public class RepositoryContext : DbContext
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserComment> UserComments { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
     {
-        optionsBuilder.UseSqlServer("Server=localhost;Database=musingo;User ID=sa;Password=superpass123#;Trusted_Connection=False;TrustServerCertificate=True");
+        
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

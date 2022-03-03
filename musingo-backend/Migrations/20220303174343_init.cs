@@ -15,10 +15,10 @@ namespace musingo_backend.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    email = table.Column<string>(type: "text", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    image_url = table.Column<string>(type: "text", nullable: true)
+                    email = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    password = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    image_url = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,11 +31,11 @@ namespace musingo_backend.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    image_url = table.Column<string>(type: "text", nullable: true),
+                    title = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    image_url = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
                     cost = table.Column<double>(type: "double precision", nullable: false),
                     owner_id = table.Column<int>(type: "int", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
                     offer_status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -89,7 +89,7 @@ namespace musingo_backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     rating = table.Column<double>(type: "double precision", nullable: false),
                     transaction_id = table.Column<int>(type: "int", nullable: true),
-                    comment_text = table.Column<string>(type: "text", nullable: true)
+                    comment_text = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
                 },
                 constraints: table =>
                 {

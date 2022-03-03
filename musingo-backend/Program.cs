@@ -4,11 +4,10 @@ using musingo_backend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var context = new RepositoryContext();
-context.Database.Migrate();
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<RepositoryContext>();
+builder.Services.AddDbContext<RepositoryContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MusingoDatabase")));
 
 builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<IUserRepository, UserRepository>();

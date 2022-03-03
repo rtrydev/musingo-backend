@@ -12,7 +12,7 @@ using musingo_backend.Data;
 namespace musingo_backend.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20220303173007_init")]
+    [Migration("20220303174343_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,11 +39,11 @@ namespace musingo_backend.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("description");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("image_url");
 
                     b.Property<int>("OfferStatus")
@@ -52,7 +52,7 @@ namespace musingo_backend.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("title");
 
                     b.Property<int>("owner_id")
@@ -114,21 +114,21 @@ namespace musingo_backend.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("email");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("image_url");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("name");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("password");
 
                     b.HasKey("Id");
@@ -146,7 +146,7 @@ namespace musingo_backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CommentText")
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(MAX)")
                         .HasColumnName("comment_text");
 
                     b.Property<double>("Rating")

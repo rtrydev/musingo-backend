@@ -19,22 +19,22 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Name)
             .HasColumnName("name")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired();
 
         builder.Property(x => x.Email)
             .HasColumnName("email")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired();
 
         builder.Property(x => x.Password)
             .HasColumnName("password")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired();
 
         builder.Property(x => x.ImageUrl)
             .HasColumnName("image_url")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired(false);
     }
 }

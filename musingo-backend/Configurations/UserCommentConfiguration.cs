@@ -27,7 +27,7 @@ public class UserCommentConfiguration : IEntityTypeConfiguration<UserComment>
 
         builder.Property(x => x.CommentText)
             .HasColumnName("comment_text")
-            .HasColumnType("text")
+            .HasColumnType("nvarchar(MAX)")
             .IsRequired(false);
 
     }
