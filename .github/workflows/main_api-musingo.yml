@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'api-musingo'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_79B58977E6E643E18F7EC127D782D278 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6F0155D3AE72435DA5C9FF2391893CE6 }}
           package: .
